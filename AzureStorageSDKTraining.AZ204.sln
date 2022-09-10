@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSDKTraining.AZ204", "AzureStorageSDKTraining.AZ204\AzureStorageSDKTraining.AZ204.csproj", "{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D3584C63-3F33-45E8-9200-3A46C617D6FE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{73DBF643-4090-4B2C-A63A-BF9D05125F2C}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\run-build-and-test-dotnet.yml = .github\workflows\run-build-and-test-dotnet.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "items", "items", "{FE37EBC4-5B12-4B70-89C4-BAEF2C006F5A}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		LICENSE.txt = LICENSE.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{73DBF643-4090-4B2C-A63A-BF9D05125F2C} = {D3584C63-3F33-45E8-9200-3A46C617D6FE}
+	EndGlobalSection
+EndGlobal

@@ -2,8 +2,8 @@
 
 [![Run Build and Test](https://github.com/kolosovpetro/AzureStorageSDKTraining.AZ204/actions/workflows/run-build-and-test-dotnet.yml/badge.svg)](https://github.com/kolosovpetro/AzureStorageSDKTraining.AZ204/actions/workflows/run-build-and-test-dotnet.yml)
 
-Just repo where I practice interaction with Azure Storage SDK such as upload, download, change metadata, access
-policies (SAS) etc.
+Just repo where I practice interaction with Azure Storage SDK such as upload blobs, download blobs, set blob metadata,
+set blob properties, change access policies using SAS etc.
 
 ## Infrastructure provisioning
 
@@ -15,9 +15,11 @@ policies (SAS) etc.
 
 ## Azure storage SDK entities
 
-- `BlobServiceClient` - to manage azure storage account
-- `BlobContainerClient` - to manage azure storage container
-- `BlobClient` - to manage particular blob (file)
+- `BlobServiceClient` - to manage azure storage account, requires:
+    - `new StorageSharedKeyCredential(StorageAccountName, StorageAccountKey)`
+    - `new Uri(BlobServiceEndpoint)`
+- `BlobContainerClient` - to manage azure storage container, requires `BlobServiceClient`
+- `BlobClient` - to manage particular blob (file), requires `BlobContainerClient`
 
 ## Required packages
 

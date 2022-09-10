@@ -7,11 +7,13 @@ namespace AzureStorageSDKTraining.AZ204;
 
 public interface IStorageClient
 {
+    Stream ReadFileFromFileSystem(string filePath);
+    
     Task SaveFileAsync(Stream stream, string contentType, string uniqueFileName, string containerName);
 
     Task<List<string>> ListBlobsInsideContainerAsync(string containerName);
 
-    Task<Stream> DownloadToStreamAsync(string uniqueName);
+    Task<Stream> DownloadToStreamAsync(string containerName, string uniqueFileName);
 
     Task UpdateBlobMetadataAsync(BlobClient blob, IDictionary<string, string> metadata);
 

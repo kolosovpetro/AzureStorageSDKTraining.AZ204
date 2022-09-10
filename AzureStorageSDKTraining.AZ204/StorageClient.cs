@@ -22,8 +22,7 @@ public class StorageClient : IStorageClient
 
         _blobServiceClient = new BlobServiceClient(uri, credentials);
     }
-
-
+    
     public Task SaveFileAsync(Stream stream, string contentType, string uniqueFileName, string containerName)
     {
         throw new NotImplementedException();

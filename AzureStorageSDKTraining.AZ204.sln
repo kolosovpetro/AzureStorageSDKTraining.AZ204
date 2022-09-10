@@ -17,6 +17,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "items", "items", "{FE37EBC4
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{300EA58D-99EB-4283-995A-A73DB48E7CC1}"
+	ProjectSection(SolutionItems) = preProject
+		TestFiles\01_develop_azure_compute_solutions.PNG = TestFiles\01_develop_azure_compute_solutions.PNG
+		TestFiles\02_implement_azure_security.PNG = TestFiles\02_implement_azure_security.PNG
+		TestFiles\03_connect_and_consume_services.PNG = TestFiles\03_connect_and_consume_services.PNG
+		TestFiles\04_implement_cosmos_storage_solutions.PNG = TestFiles\04_implement_cosmos_storage_solutions.PNG
+		TestFiles\05_monitor_and_troubleshoot.PNG = TestFiles\05_monitor_and_troubleshoot.PNG
+		TestFiles\06_guides_to_watch.PNG = TestFiles\06_guides_to_watch.PNG
+		TestFiles\07_skill_iq_quizes.PNG = TestFiles\07_skill_iq_quizes.PNG
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

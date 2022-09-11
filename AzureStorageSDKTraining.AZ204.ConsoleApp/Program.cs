@@ -26,7 +26,6 @@ public static class Program
             switch (item)
             {
                 case "1":
-                    Console.Clear();
                     await UploadAllFilesFromTestFolderAsync();
                     break;
                 case "2":
@@ -85,25 +84,59 @@ public static class Program
 
     private static async Task DownloadAllFilesLocallyAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        var fileList = TestFilesHelper.TestFileNameList;
+
+        foreach (var fileName in fileList)
+        {
+            Console.WriteLine($"Downloading file {fileName} ...");
+            var stream = await StorageClient.DownloadToStreamAsync(container, fileName);
+            await using var fileStream = new FileStream(fileName, FileMode.Append, FileAccess.Write);
+            await stream.CopyToAsync(fileStream);
+        }
+
+        Console.WriteLine("Press any key to continue ...");
+        Console.ReadKey();
+        Console.Clear();
     }
 
     private static async Task ListAllFilesInsideContainerAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        var blobList = await StorageClient.ListBlobsInsideContainerAsync(container);
+
+        if (blobList.Count == 0)
+        {
+            Console.WriteLine($"Container {container} does not contain any blobs.");
+            Console.WriteLine("Press any key to continue ...");
+            Console.ReadKey();
+            Console.Clear();
+
+            return;
+        }
+
+        Console.WriteLine("Container contents:");
+
+        foreach (var blob in blobList)
+        {
+            Console.WriteLine($"  -- {blob}");
+        }
+
+        Console.WriteLine("\nPress any key to continue ...");
+        Console.ReadKey();
+        Console.Clear();
     }
 
     private static async Task UploadAllFilesFromTestFolderAsync()
     {
-        Console.WriteLine("Enter container name: ");
-
-        var container = Console.ReadLine();
-
-        if (string.IsNullOrEmpty(container))
-        {
-            Console.WriteLine($"Container is not specified, retain default value: {DefaultContainer}");
-            container = DefaultContainer;
-        }
+        Console.Clear();
+        var container = ReadContainerNameFromConsole();
 
         var containerClient = StorageClient.GetContainerClient(container);
         var filesList = TestFilesHelper.TestFileNameList;
@@ -133,6 +166,21 @@ public static class Program
         Console.WriteLine("Press any key to continue ...");
         Console.ReadKey();
         Console.Clear();
+    }
+
+    private static string ReadContainerNameFromConsole()
+    {
+        Console.WriteLine("Enter container name: ");
+
+        var container = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(container))
+        {
+            Console.WriteLine($"Container is not specified, retain default value: {DefaultContainer}");
+            container = DefaultContainer;
+        }
+
+        return container;
     }
 
     private static void DisplayMainMenu()

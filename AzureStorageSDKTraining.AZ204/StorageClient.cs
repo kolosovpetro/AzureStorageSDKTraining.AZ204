@@ -12,6 +12,8 @@ public class StorageClient : IStorageClient
 {
     private const string BlobServiceEndpoint = "<primary-blob-service-endpoint>";
     private const string StorageAccountName = "<storage-account-name>";
+    
+    // keep account key as SAS, not root one
     private const string StorageAccountKey = "<key>";
 
     private readonly BlobServiceClient _blobServiceClient;
@@ -75,27 +77,57 @@ public class StorageClient : IStorageClient
         return result;
     }
 
-    public Task UpdateBlobMetadataAsync(BlobClient blob, IDictionary<string, string> metadata)
+    public async Task UpdateBlobMetadataAsync(
+        string containerName,
+        string fileName,
+        IDictionary<string, string> metadata)
     {
-        throw new NotImplementedException();
+        var container = GetContainerClient(containerName);
+
+        var blob = container.GetBlobClient(fileName);
+
+        await blob.SetMetadataAsync(metadata);
     }
 
-    public Task<IDictionary<string, string>> ReadBlobMetadataASync(string containerName, string fileName)
+    public IDictionary<string, string> ReadBlobMetadataASync(string containerName, string fileName)
     {
-        throw new NotImplementedException();
-    }
+        var container = GetContainerClient(containerName);
 
-    public Task<IDictionary<string, string>> ReadBlobMetadataASync(BlobClient blob)
-    {
-        throw new NotImplementedException();
+        var blob = container.GetBlobClient(fileName);
+
+        var props = blob.GetProperties();
+
+        var metaData = props.Value.Metadata;
+
+        return metaData;
     }
 
     public void PrintDictionaryContents(IDictionary<string, string> dictionary)
     {
+        Console.WriteLine("Dictionary contents: ");
+
+        foreach (var pair in dictionary)
+        {
+            Console.WriteLine($"  -- Key: {pair.Key}, Value: {pair.Value}");
+        }
+    }
+
+    public async Task PrintAccountDetails()
+    {
+        var accountInfo = await _blobServiceClient.GetAccountInfoAsync();
+
+        await Console.Out.WriteLineAsync($"Connected to Azure Storage Account");
+        await Console.Out.WriteLineAsync($"Account name:\t{StorageAccountName}");
+        await Console.Out.WriteLineAsync($"Account kind:\t{accountInfo.Value.AccountKind}");
+        await Console.Out.WriteLineAsync($"Account sku:\t{accountInfo.Value.SkuName}");
+    }
+
+    public Task SetBlobPropertiesAsync(string containerName, string fileName)
+    {
         throw new NotImplementedException();
     }
 
-    public void PrintAccountDetails()
+    public Task GetBlobPropertiesAsync(string containerName, string fileName)
     {
         throw new NotImplementedException();
     }

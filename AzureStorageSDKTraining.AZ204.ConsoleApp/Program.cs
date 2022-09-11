@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs.Models;
 
 namespace AzureStorageSDKTraining.AZ204.ConsoleApp;
 
@@ -9,6 +10,7 @@ public static class Program
     private static readonly IStorageClient StorageClient = new StorageClient();
 
     private const string DefaultContainer = "containerpkolosov";
+    private const string DefaultBlob = "01_develop_azure_compute_solutions.PNG";
 
     public static async Task Main()
     {
@@ -59,27 +61,171 @@ public static class Program
 
     private static async Task GetBlobPropertiesAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        Console.WriteLine("Enter blob name: ");
+
+        var blobName = ReadBlobNameFromConsole();
+
+        var client = StorageClient.GetContainerClient(container);
+
+        var blob = client.GetBlobClient(blobName);
+
+        var exists = await blob.ExistsAsync();
+
+        if (!exists)
+        {
+            Console.WriteLine($"Blob does not exist {blobName}");
+            PressAnyKeyToContinue();
+            return;
+        }
+
+        BlobProperties properties = await blob.GetPropertiesAsync();
+
+        Console.WriteLine($"Getting properties to the blob {blobName} ...");
+
+        Console.WriteLine($" ContentLanguage: {properties.ContentLanguage}");
+        Console.WriteLine($" ContentType: {properties.ContentType}");
+        Console.WriteLine($" CreatedOn: {properties.CreatedOn}");
+        Console.WriteLine($" LastModified: {properties.LastModified}]");
+
+        Console.WriteLine("\nSuccess.");
+
+        PressAnyKeyToContinue();
     }
 
     private static async Task SetBlobPropertiesAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        Console.WriteLine("Enter blob name: ");
+
+        var blobName = ReadBlobNameFromConsole();
+
+        var client = StorageClient.GetContainerClient(container);
+
+        var blob = client.GetBlobClient(blobName);
+
+        var exists = await blob.ExistsAsync();
+
+        if (!exists)
+        {
+            Console.WriteLine($"Blob does not exist {blobName}");
+            PressAnyKeyToContinue();
+            return;
+        }
+
+        BlobProperties properties = await blob.GetPropertiesAsync();
+
+        var headers = new BlobHttpHeaders
+        {
+            ContentType = "text/plain",
+            ContentLanguage = "en-us",
+
+            CacheControl = properties.CacheControl,
+            ContentDisposition = properties.ContentDisposition,
+            ContentEncoding = properties.ContentEncoding,
+            ContentHash = properties.ContentHash
+        };
+
+        Console.WriteLine($"Setting properties to the blob {blobName} ...");
+        await blob.SetHttpHeadersAsync(headers);
+        Console.WriteLine("Success.");
+
+        PressAnyKeyToContinue();
     }
 
     private static async Task PrintStorageAccountDetails()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        await StorageClient.PrintAccountDetailsAsync();
+
+        PressAnyKeyToContinue();
     }
 
     private static async Task PrintBlobMetadataAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        Console.WriteLine("Enter blob name: ");
+
+        var blobName = ReadBlobNameFromConsole();
+
+        var client = StorageClient.GetContainerClient(container);
+
+        var blob = client.GetBlobClient(blobName);
+
+        var exists = await blob.ExistsAsync();
+
+        if (!exists)
+        {
+            Console.WriteLine($"Blob does not exist {blobName}");
+            PressAnyKeyToContinue();
+            return;
+        }
+
+        var meta = await blob.GetPropertiesAsync();
+        StorageClient.PrintDictionaryContents(meta.Value.Metadata);
+
+        PressAnyKeyToContinue();
     }
 
     private static async Task UpdateBlobMetadataAsync()
     {
-        throw new NotImplementedException();
+        Console.Clear();
+
+        var container = ReadContainerNameFromConsole();
+
+        Console.WriteLine("Enter blob name: ");
+
+        var blobName = ReadBlobNameFromConsole();
+
+        var client = StorageClient.GetContainerClient(container);
+
+        var blob = client.GetBlobClient(blobName);
+
+        var exists = await blob.ExistsAsync();
+
+        if (!exists)
+        {
+            Console.WriteLine($"Blob does not exist {blobName}");
+            PressAnyKeyToContinue();
+            return;
+        }
+
+        Console.WriteLine($"Setting metadata to blob {blobName} ...");
+        var meta = TestFilesHelper.BlobMetaData;
+        await blob.SetMetadataAsync(meta);
+
+        PressAnyKeyToContinue();
+    }
+
+    private static void PressAnyKeyToContinue()
+    {
+        Console.WriteLine("Press any key to continue ...");
+        Console.ReadKey();
+        Console.Clear();
+    }
+
+    private static string ReadBlobNameFromConsole()
+    {
+        var blobName = Console.ReadLine();
+
+        if (string.IsNullOrEmpty(blobName))
+        {
+            Console.WriteLine($"Blob value is not provided, retain default: {DefaultBlob}");
+
+            blobName = DefaultBlob;
+        }
+
+        return blobName;
     }
 
     private static async Task DownloadAllFilesLocallyAsync()
@@ -98,9 +244,7 @@ public static class Program
             await stream.CopyToAsync(fileStream);
         }
 
-        Console.WriteLine("Press any key to continue ...");
-        Console.ReadKey();
-        Console.Clear();
+        PressAnyKeyToContinue();
     }
 
     private static async Task ListAllFilesInsideContainerAsync()
@@ -114,9 +258,7 @@ public static class Program
         if (blobList.Count == 0)
         {
             Console.WriteLine($"Container {container} does not contain any blobs.");
-            Console.WriteLine("Press any key to continue ...");
-            Console.ReadKey();
-            Console.Clear();
+            PressAnyKeyToContinue();
 
             return;
         }
@@ -128,9 +270,7 @@ public static class Program
             Console.WriteLine($"  -- {blob}");
         }
 
-        Console.WriteLine("\nPress any key to continue ...");
-        Console.ReadKey();
-        Console.Clear();
+        PressAnyKeyToContinue();
     }
 
     private static async Task UploadAllFilesFromTestFolderAsync()
@@ -163,9 +303,7 @@ public static class Program
             await blob.UploadAsync(stream);
         }
 
-        Console.WriteLine("Press any key to continue ...");
-        Console.ReadKey();
-        Console.Clear();
+        PressAnyKeyToContinue();
     }
 
     private static string ReadContainerNameFromConsole()

@@ -113,7 +113,7 @@ public class StorageClient : IStorageClient
         }
     }
 
-    public async Task PrintAccountDetails()
+    public async Task PrintAccountDetailsAsync()
     {
         var accountInfo = await _blobServiceClient.GetAccountInfoAsync();
 

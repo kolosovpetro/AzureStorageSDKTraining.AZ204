@@ -23,7 +23,7 @@ public interface IStorageClient
 
     void PrintDictionaryContents(IDictionary<string, string> dictionary);
 
-    Task PrintAccountDetails();
+    Task PrintAccountDetailsAsync();
 
     Task SetBlobPropertiesAsync(string containerName, string fileName);
 

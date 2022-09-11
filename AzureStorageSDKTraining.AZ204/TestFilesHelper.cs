@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 
 namespace AzureStorageSDKTraining.AZ204;
 
 public static class TestFilesHelper
 {
-    public const string TestFilesDir = "TestFiles";
+    private const string TestFilesDir = "TestFiles";
     public const string TestFilesPath = $"../../../../{TestFilesDir}";
 
     public static List<string> TestFileNameList => new()
@@ -17,5 +16,12 @@ public static class TestFilesHelper
         "05_monitor_and_troubleshoot.PNG",
         "06_guides_to_watch.PNG",
         "07_skill_iq_quizes.PNG",
+    };
+
+    public static Dictionary<string, string> BlobMetaData => new()
+    {
+        { "author", "pkolosov" },
+        { "scope", "az204preparation" },
+        { "topsecret", "true" },
     };
 }

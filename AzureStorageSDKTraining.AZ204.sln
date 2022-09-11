@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		TestFiles\07_skill_iq_quizes.PNG = TestFiles\07_skill_iq_quizes.PNG
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureStorageSDKTraining.AZ204.ConsoleApp", "AzureStorageSDKTraining.AZ204.ConsoleApp\AzureStorageSDKTraining.AZ204.ConsoleApp.csproj", "{5FF77383-EA67-43C8-B229-8C63ACC6D0A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CB03574-6DAC-4A22-8CDC-F32079E5EB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FF77383-EA67-43C8-B229-8C63ACC6D0A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FF77383-EA67-43C8-B229-8C63ACC6D0A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FF77383-EA67-43C8-B229-8C63ACC6D0A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FF77383-EA67-43C8-B229-8C63ACC6D0A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{73DBF643-4090-4B2C-A63A-BF9D05125F2C} = {D3584C63-3F33-45E8-9200-3A46C617D6FE}

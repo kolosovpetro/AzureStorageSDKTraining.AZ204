@@ -1,12 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
 
 namespace AzureStorageSDKTraining.AZ204;
 
 public interface IStorageClient
 {
     Stream ReadFileFromFileSystem(string filePath);
+
+    BlobContainerClient GetContainerClient(string blobContainerName);
 
     Task SaveFileAsync(Stream stream, string contentType, string uniqueFileName, string containerName);
 

@@ -5,6 +5,9 @@ namespace AzureStorageSDKTraining.AZ204;
 
 public static class TestFilesHelper
 {
+    public const string TestFilesDir = "TestFiles";
+    public const string TestFilesPath = $"../../../../{TestFilesDir}";
+
     public static List<string> TestFileNameList => new()
     {
         "01_develop_azure_compute_solutions.PNG",
@@ -15,11 +18,4 @@ public static class TestFilesHelper
         "06_guides_to_watch.PNG",
         "07_skill_iq_quizes.PNG",
     };
-
-    public static string ToProperFilePath(this string fileName)
-    {
-        var path = Path.Combine("../../../", fileName);
-
-        return path;
-    }
 }

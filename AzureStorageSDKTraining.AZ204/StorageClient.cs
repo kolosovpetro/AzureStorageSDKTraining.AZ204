@@ -10,11 +10,12 @@ namespace AzureStorageSDKTraining.AZ204;
 
 public class StorageClient : IStorageClient
 {
-    private const string BlobServiceEndpoint = "<primary-blob-service-endpoint>";
-    private const string StorageAccountName = "<storage-account-name>";
-    
-    // keep account key as SAS, not root one
-    private const string StorageAccountKey = "<key>";
+    private const string BlobServiceEndpoint = "https://storagepkolosov.blob.core.windows.net/";
+
+    private const string StorageAccountName = "storagepkolosov";
+
+    private const string StorageAccountKey =
+        "wBx7rG9hD9KufrA2ojLVYcqCTlI0LJKPp++iSYXYSPwkkCK15KnZ73Yu1//kPyNebkPJyqbbgJo5+AStOXvy4Q==";
 
     private readonly BlobServiceClient _blobServiceClient;
 
@@ -43,7 +44,7 @@ public class StorageClient : IStorageClient
         return result;
     }
 
-    private BlobContainerClient GetContainerClient(string blobContainerName)
+    public BlobContainerClient GetContainerClient(string blobContainerName)
     {
         var containerClient = _blobServiceClient.GetBlobContainerClient(blobContainerName);
         containerClient.CreateIfNotExists();
